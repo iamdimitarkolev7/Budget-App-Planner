@@ -1,0 +1,8 @@
+{
+  "name": "budget-backend",
+  "private": true,
+  "workspaces": ["common", "services/*"],
+  "devDependencies": {
+    "typescript": "^5.8.3"
+  }
+}
