@@ -1,0 +1,139 @@
+version: '3.9'
+
+services:
+  ######################
+  # AUTH SERVICE + DB
+  ######################
+  auth-service:
+    build: ./services/auth-service
+    container_name: auth-service
+    ports:
+      - '3001:3000'
+    env_file:
+      - ./services/auth-service/.env
+    depends_on:
+      - auth-db
+
+  auth-db:
+    image: postgres:15
+    container_name: auth-db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: auth_service
+    volumes:
+      - auth_pgdata:/var/lib/postgresql/data
+    ports:
+      - '5433:5432'
+
+  ######################
+  # BUDGET SERVICE + DB
+  ######################
+  budget-service:
+    build: ./services/budget-service
+    container_name: budget-service
+    ports:
+      - '3002:3000'
+    env_file:
+      - ./services/budget-service/.env
+    depends_on:
+      - budget-db
+
+  budget-db:
+    image: postgres:15
+    container_name: budget-db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: budget_service
+    volumes:
+      - budget_pgdata:/var/lib/postgresql/data
+    ports:
+      - '5434:5432'
+
+  ######################
+  # EXPENSE SERVICE + DB
+  ######################
+  expense-service:
+    build: ./services/expense-service
+    container_name: expense-service
+    ports:
+      - '3003:3000'
+    env_file:
+      - ./services/expense-service/.env
+    depends_on:
+      - expense-db
+
+  expense-db:
+    image: postgres:15
+    container_name: expense-db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: expense_service
+    volumes:
+      - expense_pgdata:/var/lib/postgresql/data
+    ports:
+      - '5435:5432'
+
+  ######################
+  # REPORT SERVICE + DB
+  ######################
+  report-service:
+    build: ./services/report-service
+    container_name: report-service
+    ports:
+      - '3004:3000'
+    env_file:
+      - ./services/report-service/.env
+    depends_on:
+      - report-db
+
+  report-db:
+    image: postgres:15
+    container_name: report-db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: report_service
+    volumes:
+      - report_pgdata:/var/lib/postgresql/data
+    ports:
+      - '5436:5432'
+
+  ######################
+  # USER SERVICE + DB
+  ######################
+  user-service:
+    build: ./services/user-service
+    container_name: user-service
+    ports:
+      - '3005:3000'
+    env_file:
+      - ./services/user-service/.env
+    depends_on:
+      - user-db
+
+  user-db:
+    image: postgres:15
+    container_name: user-db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: user_service
+    volumes:
+      - user_pgdata:/var/lib/postgresql/data
+    ports:
+      - '5437:5432'
+
+volumes:
+  auth_pgdata:
+  budget_pgdata:
+  expense_pgdata:
+  report_pgdata:
+  user_pgdata:
