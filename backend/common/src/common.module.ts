@@ -11,7 +11,10 @@ import {
 import { TimestampSubscriber } from './event-subscribers'
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Account, Budget, BudgetCategory, Expense, Report, User])],
+  imports: [
+    TypeOrmModule.forFeature([Account, Budget, BudgetCategory, Expense, Report, User]),
+    TypeOrmModule,
+  ],
   providers: [TimestampSubscriber],
   exports: [
     TypeOrmModule,

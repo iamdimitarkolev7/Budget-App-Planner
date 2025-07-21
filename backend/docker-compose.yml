@@ -1,16 +1,14 @@
-version: '3.9'
-
 services:
   ######################
   # AUTH SERVICE + DB
   ######################
   auth-service:
-    build: ./services/auth-service
+    build: ./services/authentication-service
     container_name: auth-service
     ports:
       - '3001:3000'
     env_file:
-      - ./services/auth-service/.env
+      - ./services/authentication-service/.env
     depends_on:
       - auth-db
 

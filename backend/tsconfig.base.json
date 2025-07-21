@@ -1,4 +1,3 @@
-// /backend/tsconfig.base.json
 {
   "compilerOptions": {
     "baseUrl": ".",
