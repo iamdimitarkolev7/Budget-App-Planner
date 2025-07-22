@@ -2,7 +2,7 @@ import { Column, Entity, OneToOne, RelationId } from 'typeorm'
 import { User } from './User.entity'
 import { BaseEntity } from './base'
 
-@Entity()
+@Entity('account')
 export class Account extends BaseEntity {
   @Column({ type: 'varchar', unique: true })
   email: string

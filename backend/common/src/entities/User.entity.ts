@@ -11,7 +11,7 @@ import { Budget } from './Budget.entity'
 import { Report } from './Report.entity'
 import { BaseEntity } from './base'
 
-@Entity({ name: 'users' })
+@Entity('users')
 export class User extends BaseEntity {
   @Column({ nullable: true })
   name: string

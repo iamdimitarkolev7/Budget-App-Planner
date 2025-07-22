@@ -3,7 +3,7 @@ import { BudgetCategory } from './BudgetCategory.entity'
 import { User } from './User.entity'
 import { BaseEntity } from './base'
 
-@Entity()
+@Entity('budget')
 export class Budget extends BaseEntity {
   @Column()
   month: number

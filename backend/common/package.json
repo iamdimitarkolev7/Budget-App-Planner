@@ -7,6 +7,8 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "build": "tsc -p tsconfig.json"
+    "build": "tsc -p tsconfig.json",
+    "migration:run": "ts-node src/scripts/run-migrations.ts",
+    "migration:revert": "ts-node src/scripts/revert-migrations.ts"
   }
 }

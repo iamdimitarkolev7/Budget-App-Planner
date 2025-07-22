@@ -3,7 +3,7 @@ import { User } from './User.entity'
 import { ReportType } from '../models'
 import { BaseEntity } from './base'
 
-@Entity()
+@Entity('report')
 export class Report extends BaseEntity {
   @Column()
   month: number

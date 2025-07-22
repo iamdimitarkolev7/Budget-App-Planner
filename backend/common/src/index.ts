@@ -1,5 +1,7 @@
 export * from './entities'
 export * from './event-subscribers'
-// export * from './migrations'
+export * from './models'
+export * from './repositories'
+export * from './scripts'
 export * from './common.module'
 export * from './typeorm.config'

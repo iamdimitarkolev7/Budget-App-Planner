@@ -4,7 +4,7 @@ import { Expense } from './Expense.entity'
 import { BaseEntity } from './base'
 import { Category } from '../models'
 
-@Entity()
+@Entity('budget_category')
 export class BudgetCategory extends BaseEntity {
   @Column()
   name: Category
