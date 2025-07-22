@@ -9,15 +9,17 @@
     "build": "npm run build:common && npm run build:services",
     "build:common": "npm run build -w common",
     "build:services": "npm run build -w services/authentication-service && npm run build -w services/budget-service && npm run build -w services/expense-service && npm run build -w services/report-service && npm run build -w services/user-service",
-    "run-migrations": "npm run migration:run -w common"
+    "run-migrations": "npm run migration:run -w common",
+    "start:all": "concurrently -n auth,budget,expense -c green,blue,magenta \"npm run start:dev -w services/authentication-service\" \"npm run start:dev -w services/budget-service\" \"npm run start:dev -w services/expense-service\" \"npm run start:dev -w services/report-service\" \"npm run start:dev -w services/user-service\""
   },
   "dependencies": {
+    "@common/package": "*",
     "@nestjs/common": "^10.0.0",
     "@nestjs/config": "^4.0.2",
     "@nestjs/core": "^10.0.0",
     "@nestjs/platform-express": "^10.0.0",
     "@nestjs/typeorm": "^11.0.0",
-    "@common/package": "*",
+    "pg": "^8.16.3",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.1",
     "typeorm": "^0.3.25"
@@ -32,6 +34,7 @@
     "@types/supertest": "^2.0.12",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
+    "concurrently": "^9.2.0",
     "eslint": "^8.42.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.0",

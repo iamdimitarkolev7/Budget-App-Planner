@@ -9,21 +9,16 @@ import {
   User,
 } from './entities'
 import { TimestampSubscriber } from './event-subscribers'
+import { AppDataSource } from './typeorm.config'
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Account, Budget, BudgetCategory, Expense, Report, User]),
-    TypeOrmModule,
+    TypeOrmModule.forFeature(
+      [Account, Budget, BudgetCategory, Expense, Report, User],
+      AppDataSource
+    ),
   ],
   providers: [TimestampSubscriber],
-  exports: [
-    TypeOrmModule,
-    Account,
-    Budget,
-    BudgetCategory,
-    Expense,
-    Report,
-    User,
-  ]
+  exports: [TypeOrmModule]
 })
 export class CommonModule { }
