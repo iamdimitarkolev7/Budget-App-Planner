@@ -1,43 +1,43 @@
 # === Base stage for dependency installation ===
 FROM node:18-alpine AS deps
-
 WORKDIR /app
 
-# Copy all package manifests (for monorepo)
+# Copy root package.json + lock
 COPY package*.json ./
-COPY tsconfig*.json .
 
-# Copy full monorepo layout for workspace resolution
-COPY common ./common
-COPY services/budget-service ./services/budget-service
+# Copy all workspaces' manifests only (no source yet, keeps cache efficient)
+COPY common/package.json ./common/package.json
+COPY services/budget-service/package.json ./services/budget-service/package.json
 
-# Install only the auth-service workspace
+# Install dependencies (will install workspaces too)
 RUN npm install
 
 # === Build stage ===
 FROM node:18-alpine AS builder
-
 WORKDIR /app
 
-# Copy package manifests and workspace structure
-COPY --from=deps /app/package.json ./package.json
-COPY --from=deps /app/package-lock.json ./package-lock.json
+# Copy node_modules from deps
 COPY --from=deps /app/node_modules ./node_modules
-COPY --from=deps /app/common ./common
-COPY --from=deps /app/services/budget-service ./services/budget-service
+COPY --from=deps /app/package*.json ./
+COPY --from=deps /app/common/package.json ./common/package.json
+COPY --from=deps /app/services/budget-service/package.json ./services/budget-service/package.json
 
-# Rebuild the workspace tree so npm can resolve workspaces
+# Now copy the actual source
+COPY common ./common
+COPY services/budget-service ./services/budget-service
+
+# Build both common + budget-service
 RUN npm run --workspace=common build && \
     npm run --workspace=services/budget-service build
 
 # === Final stage ===
 FROM node:18-alpine
-
 WORKDIR /app
 
+# Copy only built artifacts + production dependencies
 COPY --from=builder /app/services/budget-service/dist ./dist
 COPY --from=builder /app/common/dist ./common/dist
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/package.json ./package.json
+COPY --from=deps /app/node_modules ./node_modules
+COPY --from=deps /app/package*.json ./
 
 CMD ["node", "dist/main"]
