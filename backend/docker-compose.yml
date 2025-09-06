@@ -3,10 +3,8 @@ services:
     image: postgres:15
     container_name: budget-planner-app-dev
     restart: always
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: budget_planner
+    env_file:
+      - './common/.env'
     volumes:
       - ./data/budget-planner:/var/lib/postgresql/data
     ports:
