@@ -1,7 +1,7 @@
 import { DataSource } from 'typeorm'
 import { AppDataSource } from '../typeorm.config'
 
-async function runMigrations() {
+export const runMigrations = async () => {
   try {
     const dataSource: DataSource = await AppDataSource.initialize()
     console.log('Connected to database. Running migrations...')

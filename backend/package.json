@@ -10,7 +10,7 @@
     "build:common": "npm run build -w common",
     "build:services": "npm run build -w services/authentication-service && npm run build -w services/budget-service && npm run build -w services/expense-service && npm run build -w services/report-service && npm run build -w services/user-service",
     "run-migrations": "npm run migration:run -w common",
-    "start:all": "concurrently -n auth,budget,expense -c green,blue,magenta \"npm run start:dev -w services/authentication-service\" \"npm run start:dev -w services/budget-service\" \"npm run start:dev -w services/expense-service\" \"npm run start:dev -w services/report-service\" \"npm run start:dev -w services/user-service\""
+    "start:all": "concurrently -n auth,budget,expense,report,user -c green,blue,magenta,whi†e,red \"npm run start:dev -w services/authentication-service\" \"npm run start:dev -w services/budget-service\" \"npm run start:dev -w services/expense-service\" \"npm run start:dev -w services/report-service\" \"npm run start:dev -w services/user-service\""
   },
   "dependencies": {
     "@common/package": "*",

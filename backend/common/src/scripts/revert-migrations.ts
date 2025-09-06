@@ -1,6 +1,6 @@
 import { AppDataSource } from '../typeorm.config'
 
-async function revertLastMigration() {
+export const revertLastMigration = async () => {
   try {
     const dataSource = await AppDataSource.initialize()
     console.log('Reverting last migration...')
@@ -14,5 +14,3 @@ async function revertLastMigration() {
     process.exit(1)
   }
 }
-
-revertLastMigration()
